@@ -9,6 +9,9 @@ import time
 from itertools import count
 import query
 
+theano.config.device = 'gpu'
+theano.config.floatX = 'float32'
+
 NUM_EPOCHS = 500
 
 BATCH_SIZE = 1000
@@ -61,7 +64,7 @@ class LambdaRankHW:
 
         A theano expression which represents such a network is returned.
         """
-        print "input_dim",input_dim, "output_dim",output_dim
+        print("input_dim",input_dim, "output_dim",output_dim)
         l_in = lasagne.layers.InputLayer(
             shape=(batch_size, input_dim),
         )
@@ -134,7 +137,7 @@ class LambdaRankHW:
             # },
         )
 
-        print "finished create_iter_functions"
+        print("finished create_iter_functions")
         return dict(
             train=train_func,
             out=score_func,
@@ -187,4 +190,3 @@ class LambdaRankHW:
                 'number': epoch,
                 'train_loss': avg_train_loss,
             }
-
